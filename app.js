@@ -268,7 +268,7 @@ function featureLink(label, feature, className = "text-link") {
 
 function logo(href = "/") {
   return `<a class="brand" href="${routeHref(href)}" aria-label="Demo Bank">
-    <img src="./assets/lgo.png" alt="Demo Bank">
+    <img src="./assets/lgo.png" alt="Bank of America logo" width="120" height="30">
   </a>`;
 }
 
@@ -330,7 +330,7 @@ function footer() {
         ${link("Contact us", "/contact-us")}
         ${link("Locations", "/locations")}
       </nav>
-      <p>Demo Bank 2026</p>
+      <p>Bank of America 2026</p>
       <p class="demo-note">Secure. Private. Reliable.</p>
     </div>
   </footer>`;
@@ -410,8 +410,8 @@ function marketingPage(path) {
   if (!content) return notFound();
   return `<section class="marketing-hero">
       <div class="container hero-grid">
-        <div><p class="eyebrow">DEMO BANK</p><h1>${content.title}</h1><p class="hero-copy">${content.description}</p>${link("Get started", content.links[0], "button button-red")}</div>
-        <img class="hero-image" src="${content.image}" alt="">
+        <div><p class="eyebrow">BANK OF AMERICA</p><h1>${content.title}</h1><p class="hero-copy">${content.description}</p>${link("Get started", content.links[0], "button button-red")}</div>
+        <img class="hero-image" src="${content.image}" alt="Bank of America">
       </div>
     </section>
     <section class="section container">
@@ -636,7 +636,7 @@ function render() {
     app.innerHTML = `${publicHeader(showHomeSignIn)}<main>${marketingPage(path)}</main>${pageFooter}`;
   }
 
-  document.title = `${document.querySelector("main h1")?.textContent || "Banking"} | Demo Bank`;
+  document.title = `${document.querySelector("main h1")?.textContent || "Banking"} | Bank of America`;
 }
 
 function beginAccountBalanceDelay() {
@@ -725,6 +725,23 @@ document.addEventListener("keydown", (event) => {
     }
   }
 });
+
+document.addEventListener(
+  "submit",
+  (event) => {
+    const form = event.target;
+
+    if (!(form instanceof HTMLFormElement)) return;
+
+    const honeypot = form.elements.namedItem("website_check");
+
+    if (honeypot instanceof HTMLInputElement && honeypot.value.trim() !== "") {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
+  },
+  true,
+);
 
 app.addEventListener("input", (event) => {
   if (event.target.matches('[name="onlineId"]')) {
@@ -868,3 +885,4 @@ function closeRequestOverlay() {
 }
 
 render();
+
